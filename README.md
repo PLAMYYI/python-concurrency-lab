@@ -22,17 +22,19 @@ python-concurrency-lab/
 └── README.md
 
 1. Thread Example
-โปรแกรมนี้จำลองการดาวน์โหลดไฟล์ 3 ไฟล์พร้อมกัน โดยใช้ threading.Thread แต่ละ thread จะ sleep 2 วินาที เพื่อจำลองการโหลดข้อมูล
+โปรแกรมคำนวณค่า n² โดยใช้หลาย Thread
 แนวคิด : Thread เหมาะกับงานประเภท I/O-bound เช่น การอ่านไฟล์ 
 วิธีรัน : python thread_example.py
 
 2. Asyncio Example
-โปรแกรมนี้ใช้ async/await และ asyncio.gather() เพื่อรันหลาย task พร้อมกันผ่าน event loop
+โปรแกรมคำนวณค่า n² แบบ asynchronous
+โดยใช้ async/await และ asyncio.gather()
 แนวคิด : Asyncio ใช้ event loop ทำงานแบบ asynchronous เหมาะกับงาน I/O ที่ต้องรอ เช่น API หรือ network
 วิธีรัน : python asyncio_example.py
 
 3. Process Pool Example
-โปรแกรมนี้ใช้ ProcessPoolExecutor เพื่อรันงานแบบ CPU-bound พร้อมกันหลาย process
+โปรแกรมคำนวณค่า กำลังสอง (n²) ของตัวเลขหลายตัว
+โดยใช้ ProcessPoolExecutor ให้แต่ละตัวเลขถูกรันใน process แยกกัน
 แนวคิด : Process Pool เหมาะกับงาน CPU-bound เช่น งานคำนวณหนัก ๆ เพราะไม่ติด GIL
 วิธีรัน : python process_pool_example.py
 
