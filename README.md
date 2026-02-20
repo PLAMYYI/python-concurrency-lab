@@ -8,38 +8,45 @@
 - Process Pool
 
 โครงสร้างไฟล์
-- thread_example.py
-- asyncio_example.py
-- process_pool_example.py
+python-concurrency-lab/
+│
+├── thread_example.py
+├── asyncio_example.py
+├── process_pool_example.py
+│
+├── tests/
+│   ├── test_thread.py
+│   ├── test_asyncio.py
+│   └── test_process.py
+│
+└── README.md
 
 1. Thread Example
-โปรแกรมนี้จำลองการดาวน์โหลดไฟล์ 3 ไฟล์พร้อมกัน
-โดยใช้ threading.Thread แต่ละ thread จะ sleep 2 วินาที เพื่อจำลองการโหลดข้อมูล
-แนวคิด:
-Thread เหมาะกับงานประเภท I/O-bound เช่น การอ่านไฟล์ หรือ network
-วิธีรัน:
-python thread_example.py
+โปรแกรมนี้จำลองการดาวน์โหลดไฟล์ 3 ไฟล์พร้อมกัน โดยใช้ threading.Thread แต่ละ thread จะ sleep 2 วินาที เพื่อจำลองการโหลดข้อมูล
+แนวคิด : Thread เหมาะกับงานประเภท I/O-bound เช่น การอ่านไฟล์ 
+วิธีรัน : python thread_example.py
 
 2. Asyncio Example
-โปรแกรมนี้จำลองการดึงข้อมูลจาก API 3 ตัวพร้อมกัน
-ใช้ async/await และ asyncio.gather()
-แนวคิด:
-Asyncio ใช้ event loop ทำงานแบบ asynchronous
-เหมาะกับงาน I/O ที่ต้องรอ เช่น API หรือ network
-วิธีรัน:
-python asyncio_example.py
+โปรแกรมนี้ใช้ async/await และ asyncio.gather() เพื่อรันหลาย task พร้อมกันผ่าน event loop
+แนวคิด : Asyncio ใช้ event loop ทำงานแบบ asynchronous เหมาะกับงาน I/O ที่ต้องรอ เช่น API หรือ network
+วิธีรัน : python asyncio_example.py
 
 3. Process Pool Example
-โปรแกรมนี้คำนวณค่า factorial ของตัวเลขหลายตัว
-โดยใช้ ProcessPoolExecutor
-แนวคิด:
-Process Pool เหมาะกับงาน CPU-bound
-เช่น งานคำนวณหนัก ๆ เพราะไม่ติด GIL
-วิธีรัน:
-python process_pool_example.py
+โปรแกรมนี้ใช้ ProcessPoolExecutor เพื่อรันงานแบบ CPU-bound พร้อมกันหลาย process
+แนวคิด : Process Pool เหมาะกับงาน CPU-bound เช่น งานคำนวณหนัก ๆ เพราะไม่ติด GIL
+วิธีรัน : python process_pool_example.py
 
-สรุปสิ่งที่ได้เรียนรู้
-- Thread เหมาะกับงาน I/O แต่ยังติด GIL ถ้าเป็นงานคำนวณหนัก
-- Asyncio ใช้ event loop ทำให้ไม่ต้องสร้างหลาย thread
-- Process Pool ใช้หลาย process จริง ทำให้เหมาะกับงาน CPU-bound
-- แต่ละแบบเหมาะกับงานต่างประเภทกัน
+4.Testing
+มีการเขียน Unit Test โดยใช้ unittest และตรวจสอบความครอบคลุมด้วย coverage
+
+ลักษณะของ Test Case
+Test ถูกออกแบบให้ครอบคลุม ประกอบด้วย
+- Normal Case (ค่าปกติ)
+- Boundary Case (ค่า 0 และค่าลบ)
+- Multiple Inputs
+- Empty List
+- Invalid Input (ตรวจสอบ TypeError)
+วิธีรัน : python -m unittest discover -s tests
+วิธีตรวจสอบ Coverage : 
+    - coverage run --source=thread_example,process_pool_example,asyncio_example -m unittest discover -s tests
+    - coverage report -m
