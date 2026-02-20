@@ -1,22 +1,24 @@
 import threading
-import time
 
-def download_file(file_name):
-    print(f"Start downloading {file_name}")
-    time.sleep(2)  # จำลองการโหลดไฟล์
-    print(f"Finished downloading {file_name}")
+def square(n):
+    if not isinstance(n, (int, float)):
+        raise TypeError("Input must be a number")
+    return n * n
 
-if __name__ == "__main__":
-    files = ["file1", "file2", "file3"]
+
+def run_threads(numbers):
+    results = []
+
+    def worker(num):
+        results.append(square(num))
 
     threads = []
-
-    for file in files:
-        t = threading.Thread(target=download_file, args=(file,))
+    for n in numbers:
+        t = threading.Thread(target=worker, args=(n,))
         threads.append(t)
         t.start()
 
     for t in threads:
         t.join()
 
-    print("All downloads completed.")
+    return sorted(results)

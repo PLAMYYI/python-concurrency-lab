@@ -1,20 +1,14 @@
 import asyncio
 
-async def fetch_data(name, delay):
-    print(f"Start fetching {name}")
-    await asyncio.sleep(delay)
-    print(f"Finished fetching {name}")
-    return name
+async def async_square(n):
+    if not isinstance(n, (int, float)):
+        raise TypeError("Input must be a number")
 
-async def main():
-    tasks = [
-        fetch_data("API1", 2),
-        fetch_data("API2", 3),
-        fetch_data("API3", 1),
-    ]
+    await asyncio.sleep(0.01)
+    return n * n
 
+
+async def run_async_tasks(numbers):
+    tasks = [async_square(n) for n in numbers]
     results = await asyncio.gather(*tasks)
-    print("All tasks done:", results)
-
-if __name__ == "__main__":
-    asyncio.run(main())
+    return results
