@@ -12,11 +12,11 @@
     - thread_example.py
     - asyncio_example.py
     - process_pool_example.py
-- tests
-    - test_thread.py
-    - test_asyncio.py
-    - test_process.py
-- README.md
+    - tests
+        - test_thread.py
+        - test_asyncio.py
+        - test_process.py
+    - README.md
 
 1. Thread Example
 โปรแกรมคำนวณค่า n² โดยใช้หลาย Thread
